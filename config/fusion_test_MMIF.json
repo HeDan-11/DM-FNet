@@ -1,0 +1,134 @@
+{
+    "name": "FS_Head_Test",
+    "phase": "test",
+    "gpu_ids": [
+        2
+    ],
+
+    "path": {
+        "log": "logs",
+        "tb_logger": "tb_logger",
+        "results": "results",
+        "checkpoint": "checkpoint", 
+        "resume_state": "/home/hedan/MMIF/DM-FNet/pth/I630000_E14000_gen.pth"
+    },
+
+    "path_df": {
+        "log": "logs",
+        "tb_logger": "tb_logger",
+        "results": "results",
+        "checkpoint": "checkpoint", 
+        "resume_state": "/home/hedan/MMIF/DM-FNet/pth/MIF.pth"
+    },
+
+    "datasets": {
+        "train": {
+            "name": "MMIF",
+            "dataroot": "",
+            "resolution": 256,
+            "batch_size": 1, 
+            "num_workers":0,
+            "use_shuffle": true,
+            "data_len": -1 
+        },
+        "val": {
+            "name": "MMIF",
+            "dataroot": "",
+            "resolution": 256,
+            "image_size_w": 256,
+            "image_size_h": 256,
+            "batch_size": 1,
+            "num_workers": 0,
+            "use_shuffle": true,
+            "data_len": -1    
+        },
+        "test": {
+            "name": "MMIF",
+            "dataroot": "/media/sata1/hedan/test_imgs_IN/MRI-PET",
+            "resolution": 256, 
+            "image_size_w": 256,
+            "image_size_h": 256,
+            "batch_size": 1,
+            "num_workers": 0,
+            "use_shuffle": false,
+            "data_len": -1
+        }
+    },
+
+    "model_df": {
+        "feat_scales": [2, 5, 8, 11, 14],
+        "out_channels": 1,
+        "loss_type": "ce",
+        "output_cm_size": 640,
+        "psp": true,
+        "feat_type": "dec",
+        "t": [5,10,20]
+    },
+
+    "model": {
+        "which_model_G": "sr3",
+        "finetune_norm": false,
+        "unet": {
+            "in_channel": 1,
+            "out_channel": 1,
+            "inner_channel": 128,
+            "channel_multiplier": [
+                1,
+                1,
+                1,
+                1,
+                2
+            ],
+            "attn_res": [
+                16
+            ],
+            "res_blocks": 2,
+            "dropout": 0.2
+        },
+        "beta_schedule": {
+            "train": {
+                "schedule": "linear",
+                "n_timestep": 2000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2
+            },
+            "val": {
+                "schedule": "linear",
+                "n_timestep": 2000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2
+            },
+            "test": {
+                "schedule": "linear",
+                "n_timestep": 2000,
+                "linear_start": 1e-6,
+                "linear_end": 1e-2
+            }
+        },
+        "diffusion": {
+            "image_size": 640,
+            "image_size_w": 640,
+            "image_size_h": 480,
+            "channels": 1,
+            "loss": "l2",
+            "is_concat": false,
+            "conditional": false
+        }
+    },
+    
+    "train": {
+        "n_epoch": 300,
+        "train_print_freq": 50,
+        "val_freq": 1,
+        "val_print_freq": 100,
+        "optimizer": {
+            "type": "adam",
+            "lr": 1e-4
+        },
+        "sheduler": {
+            "lr_policy": "linear",
+            "n_steps": 3,
+            "gamma": 0.1
+        }
+    }
+}

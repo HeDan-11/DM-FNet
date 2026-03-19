@@ -2,9 +2,9 @@
 DM-FNet: Unified multimodal medical image fusion via diffusion process-trained encoder-decoder. This paper has been accepted by IEEE Transactions on Multimedia (TMM) in March 2025.
 
 ## Results (BaiduNetdisk)
-link：https://pan.baidu.com/s/1HhyQC2iB71h6pyxZ1yCnIQ 
+link：https://pan.baidu.com/s/1rcXcrs4eMcfzzdeLxsnsLw
 
-password：y9nl 
+password：of47
 
 ## Citation
 If this code is helpful, please cite the corresponding paper.:
